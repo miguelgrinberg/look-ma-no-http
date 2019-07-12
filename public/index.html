@@ -3,9 +3,16 @@
     <head>
         <title>Look Ma, No HTTP!</title>
         <link rel="stylesheet" href="css/chessboard.min.css">
+        <style>
+            #board {
+                max-width: 400px;
+            }
+        </style>
     </head>
     <body>
         <h1>Look Ma, No HTTP!</h1>
+        <h2><span id="user_count">0</span> users online</h2>
+        <div id="board"></div>
 
         <!-- dependencies -->
         <script src="js/jquery.min.js"></script>
