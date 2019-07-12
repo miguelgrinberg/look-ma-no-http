@@ -1,3 +1,4 @@
+import uuid
 import chess
 import socketio
 import uvicorn
@@ -12,6 +13,7 @@ games = []
 async def connect(sid, environ):
     if len(games) == 0 or games[-1]['black'] is not None:
         game = {
+            'id': uuid.uuid4().hex,
             'white': sid,
             'black': None,
             'board': chess.Board(),
@@ -25,6 +27,8 @@ async def connect(sid, environ):
     users[sid] = game
     await sio.emit('user_count_changed', len(users))
     await sio.emit('new_game', (game['board'].fen(), color), to=sid)
+    await sio.emit('game_updates', {game['id']: game['board'].fen()},
+                   to='watchers')
 
 
 @sio.event
@@ -46,7 +50,21 @@ async def move_made(sid, fromsq, tosq):
                 else game['black']
             await sio.emit('opponent_move', game['board'].fen(),
                            to=other_player)
+            await sio.emit('game_updates', {game['id']: game['board'].fen()},
+                           to='watchers')
     return game['board'].fen()
+
+
+@sio.event
+async def start_watching(sid):
+    sio.enter_room(sid, 'watchers')
+    await sio.emit('game_updates', {game['id']: game['board'].fen()
+                                    for game in games}, to=sid)
+
+
+@sio.event
+def stop_watching(sid):
+    sio.leave_room(sid, 'watchers')
 
 
 def main():

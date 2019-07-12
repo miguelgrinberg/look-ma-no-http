@@ -17,6 +17,18 @@ var board = new ChessBoard('board', {
     },
 });
 var piece_color;
+var watch = false;
+var all_games = {};
+
+$('#watch').click(function() {
+    watch = !watch;
+    if (watch) {
+        sio.emit('start_watching');
+    }
+    else {
+        sio.emit('stop_watching');
+    }
+});
 
 function updateBoard(fen) {
     game.load(fen);
@@ -35,4 +47,15 @@ sio.on('new_game', function(fen, color) {
 
 sio.on('opponent_move', function(fen) {
     updateBoard(fen);
+});
+
+sio.on('game_updates', function(updates) {
+    Object.keys(updates).forEach(function(id) {
+        if (!(id in all_games)) {
+            $('#watched_games').append(
+                '<div id="' + id + '" class="watched_board"></div>');
+            all_games[id] = new ChessBoard(id);
+        }
+        all_games[id].position(updates[id]);
+    });
 });

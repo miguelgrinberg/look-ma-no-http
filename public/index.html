@@ -7,12 +7,22 @@
             #board {
                 max-width: 400px;
             }
+            .watched_board {
+                max-width: 200px;
+                margin: 5px;
+            }
+            #watched_games {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, 210px);
+            }
         </style>
     </head>
     <body>
         <h1>Look Ma, No HTTP!</h1>
         <h2><span id="user_count">0</span> users online</h2>
         <div id="board"></div>
+        <p><a href="#" id="watch">Watch all games</a></p>
+        <div id="watched_games"></div>
 
         <!-- dependencies -->
         <script src="js/jquery.min.js"></script>
