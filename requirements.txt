@@ -1,5 +1,5 @@
 python-socketio==4.2.0
-uvicorn==0.8.3
+uvicorn==0.11.7
 python-chess==0.28.1
 watchgod==0.4
 
