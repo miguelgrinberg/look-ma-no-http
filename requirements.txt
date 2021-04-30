@@ -13,7 +13,7 @@ pkg-resources==0.0.0
 python-engineio==3.8.2.post1
 requests==2.22.0
 six==1.12.0
-urllib3==1.25.3
+urllib3==1.25.8
 uvloop==0.12.2
 websocket-client==0.56.0
 websockets==7.0
