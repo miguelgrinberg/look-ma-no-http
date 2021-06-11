@@ -16,4 +16,4 @@ six==1.12.0
 urllib3==1.25.3
 uvloop==0.12.2
 websocket-client==0.56.0
-websockets==7.0
+websockets==9.1
