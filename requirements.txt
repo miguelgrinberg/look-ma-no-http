@@ -3,7 +3,7 @@ uvicorn==0.8.3
 python-chess==0.28.1
 watchgod==0.4
 
-certifi==2019.6.16
+certifi==2022.12.7
 chardet==3.0.4
 Click==7.0
 h11==0.8.1
